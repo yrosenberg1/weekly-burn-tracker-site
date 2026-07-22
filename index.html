@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Burn Tracker</title>
+  <script type="module" crossorigin src="/weekly-burn-tracker-site/assets/index-BV5l47p2.js"></script>
+  <link rel="stylesheet" crossorigin href="/weekly-burn-tracker-site/assets/index-BA5KKGNA.css">
+</head>
+<body>
+  <div id="pinGate" class="pin-gate">
+    <form id="pinForm" class="pin-card">
+      <h1>Burn Tracker</h1>
+      <p class="pin-hint">Enter PIN to continue</p>
+      <input type="password" id="pinInput" inputmode="numeric" autocomplete="current-password" required />
+      <button type="submit">Unlock</button>
+      <p id="pinError" class="pin-error"></p>
+    </form>
+  </div>
+
+  <div class="app hidden">
+    <header>
+      <h1>Burn Tracker</h1>
+      <p class="subtitle">Week ends Sat 10 PM · expected weighted for business hours (9–6 M–F)</p>
+    </header>
+
+    <section class="card stats-card">
+      <div id="stats"></div>
+      <div class="bars">
+        <div class="bar-row">
+          <span class="bar-label">Week time</span>
+          <div class="bar-bg"><div id="weekElapsedBar" class="bar week-time"></div></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Expected</span>
+          <div class="bar-bg"><div id="expectedBar" class="bar expected"></div></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Trajectory</span>
+          <div class="bar-bg"><div id="trajectoryBar" class="bar actual"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-header">
+        <h2>Trajectory</h2>
+        <span id="periodLabel" class="week-label"></span>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="trajectoryChart" height="260"></canvas>
+        <div id="chartTooltip" class="chart-tooltip hidden" role="tooltip"></div>
+      </div>
+      <p id="trajectoryHint" class="trajectory-hint"></p>
+      <div class="grid" id="timelineGrid"></div>
+    </section>
+
+    <section class="card">
+      <h2>Add data point</h2>
+      <form id="addForm" class="add-form">
+        <label>
+          Logged %
+          <input type="number" id="actualInput" min="0" max="200" step="0.1" required />
+        </label>
+        <label>
+          When
+          <div class="input-with-btn">
+            <input type="datetime-local" id="timeInput" />
+            <button type="button" id="nowBtn" class="secondary">Now</button>
+          </div>
+        </label>
+        <label class="full">
+          Notes (optional)
+          <input type="text" id="notesInput" placeholder="e.g. mid-week check-in" />
+        </label>
+        <button type="submit">Save point</button>
+      </form>
+      <p id="formStatus" class="form-status"></p>
+    </section>
+
+    <section class="card">
+      <h2>Log</h2>
+      <table class="log-table" id="logTable">
+        <thead>
+          <tr><th>When</th><th>Logged %</th><th>Expected %</th><th>Variance</th><th>Notes</th><th></th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <details class="sheet-settings-wrap">
+      <summary>Sheet settings</summary>
+      <section class="card settings-card">
+        <p class="hint">Defaults live in <code>src/sheet-config.js</code>. Overrides here save to this browser only.</p>
+        <form id="settingsForm" class="settings-form">
+          <label class="full">
+            Sheet URL or ID
+            <input type="text" id="sheetIdInput" placeholder="https://docs.google.com/spreadsheets/d/.../edit" />
+          </label>
+          <label>
+            Tab name
+            <input type="text" id="tabNameInput" value="BurnLog" />
+          </label>
+          <label class="full">
+            Apps Script web app URL
+            <input type="url" id="webAppUrlInput" placeholder="https://script.google.com/macros/s/.../exec" />
+          </label>
+          <div class="btn-row">
+            <button type="submit">Save overrides</button>
+            <button type="button" id="testBtn" class="secondary">Test</button>
+            <button type="button" id="syncBtn" class="secondary">Pull</button>
+            <button type="button" id="pushBtn" class="secondary">Push</button>
+          </div>
+        </form>
+        <p id="sheetStatus" class="form-status"></p>
+      </section>
+    </details>
+  </div>
+
+</body>
+</html>
